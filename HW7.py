@@ -177,7 +177,29 @@ def position_birth_search(position, age, cur, conn):
 #     the passed year. 
 
 def make_winners_table(data, cur, conn):
-    pass
+    # Create a table with id and name columns
+    cur.execute("""CREATE TABLE IF NOT EXISTS WINNERS (id INTEGAR PRIMARY KEY, name TEXT )""")
+
+    # Insert data into the table
+    for item in data["area"]:
+        id = item["id"]
+        name = item["name"]["full"]
+        cur.execute("""INSERT INTO WINNERS (id, name) VALUES (%s, %s)""", (id, name))
+    # Commit changes to the database
+    conn.commit()
+#Explanation:
+
+"""The function takes three arguments: json_data (a string representing JSON data), cursor (a cursor object from a psycopg2 connection), and conn (a psycopg2 connection object).
+The JSON data is loaded using the json.loads method.
+A table named my_table is created using a CREATE TABLE statement with columns id (which is set as the primary key) and name.
+The data is then iterated over using a for loop, and the id and name values are extracted from each item in the JSON data.
+The INSERT INTO statement is used to insert the data into the my_table table.
+Finally, the changes are committed to the database using the conn.commit() method."""
+
+
+
+
+
 
 def make_seasons_table(data, cur, conn):
     pass
